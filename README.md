@@ -9,9 +9,9 @@ The Amazon SageMaker Python SDK provides open source APIs and containers that ma
 
 You can use Amazon SageMaker to train and deploy a model using custom TensorFlow code. The Amazon SageMaker Python SDK TensorFlow estimators and models and the Amazon SageMaker open-source TensorFlow containers make writing a TensorFlow script and running it in Amazon SageMaker easier.
 
-In this workshop we will port a working TensorFlow script to run on SageMaker, and utilize some of the feature available for TensorFlow in SageMaker
+In this workshop you will port a working TensorFlow script to run on SageMakerK and utilize some of the feature available for TensorFlow in SageMaker
 
-The workshop will be based on 5 parts:
+The workshop is based on 5 parts:
 
 1. [Porting a TensorFlow script to run in SageMaker using SageMaker script mode.](0_Running_TensorFlow_In_SageMaker.ipynb)
 2. [Monitoring your training job using TensorBoard and Amazon CloudWatch metrics.](1_Monitoring_your_TensorFlow_scripts.ipynb)
