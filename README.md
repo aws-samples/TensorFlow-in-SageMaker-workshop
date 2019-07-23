@@ -13,11 +13,11 @@ In this workshop we will port a working TensorFlow script to run on SageMaker, a
 
 The workshop will be based on 5 parts:
 
-1. [Porting a TensorFlow script to run in SageMaker using SageMaker script mode.](0 - Running TensorFlow In SageMaker.ipynb)
-2. [Monitoring your training job using TensorBoard and Amazon CloudWatch metrics.](1 - Monitoring your TensorFlow scripts.ipynb)
-3. [Optimizing your training job using SageMaker pipemode input.](2 - Using Pipemode input for big datasets.ipynb)
-4. [Running a distributed training job.](3 - Distributed training with Horovod.ipynb)
-5. [Deploying your trained model on Amazon SageMaker.](4 - Deploying your TensorFlow model.ipynb)
+1. [Porting a TensorFlow script to run in SageMaker using SageMaker script mode.](0-Running TensorFlow In SageMaker.ipynb)
+2. [Monitoring your training job using TensorBoard and Amazon CloudWatch metrics.](1-Monitoring your TensorFlow scripts.ipynb)
+3. [Optimizing your training job using SageMaker pipemode input.](2-Using Pipemode input for big datasets.ipynb)
+4. [Running a distributed training job.](3-Distributed training with Horovod.ipynb)
+5. [Deploying your trained model on Amazon SageMaker.](4-Deploying your TensorFlow model.ipynb)
 
 ## License Summary
 
