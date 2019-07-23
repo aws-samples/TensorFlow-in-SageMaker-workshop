@@ -11,7 +11,7 @@ You can use Amazon SageMaker to train and deploy a model using custom TensorFlow
 
 In this workshop you will port a working TensorFlow script to run on SageMakerK and utilize some of the feature available for TensorFlow in SageMaker
 
-The workshop is based on 5 parts:
+The workshop is based on 5 modules:
 
 1. [Porting a TensorFlow script to run in SageMaker using SageMaker script mode.](0_Running_TensorFlow_In_SageMaker.ipynb)
 2. [Monitoring your training job using TensorBoard and Amazon CloudWatch metrics.](1_Monitoring_your_TensorFlow_scripts.ipynb)
