@@ -26,7 +26,7 @@ from keras.layers import Activation, Conv2D, Dense, Dropout, Flatten, MaxPooling
 from keras.models import Sequential
 from keras.optimizers import Adam, SGD, RMSprop
 import tensorflow as tf
-# from keras import backend as K
+from keras import backend as K
 
 sess = tf.Session()
 K.set_session(sess)
