@@ -32,7 +32,7 @@ sess = tf.Session()
 K.set_session(sess)
 
 logging.getLogger().setLevel(logging.INFO)
-tf.logging.set_verbosity(tf.logging.INFO)
+
 HEIGHT = 32
 WIDTH = 32
 DEPTH = 3
@@ -150,10 +150,10 @@ def _input(epochs, batch_size, channel, channel_name):
 def _train_preprocess_fn(image):
     """Preprocess a single training image of layout [height, width, depth]."""
     # Resize the image to add four extra pixels on each side.
-    image = tf.image.resize_image_with_crop_or_pad(image, HEIGHT + 8, WIDTH + 8)
+    image = tf.image.resize_with_crop_or_pad(image, HEIGHT + 8, WIDTH + 8)
 
     # Randomly crop a [HEIGHT, WIDTH] section of the image.
-    image = tf.random_crop(image, [HEIGHT, WIDTH, DEPTH])
+    image = tf.image.random_crop(image, [HEIGHT, WIDTH, DEPTH])
 
     # Randomly flip the image horizontally.
     image = tf.image.random_flip_left_right(image)
@@ -164,12 +164,12 @@ def _train_preprocess_fn(image):
 def _dataset_parser(value):
     """Parse a CIFAR-10 record from value."""
     featdef = {
-        'image': tf.FixedLenFeature([], tf.string),
-        'label': tf.FixedLenFeature([], tf.int64),
+        'image': tf.io.FixedLenFeature([], tf.string),
+        'label': tf.io.FixedLenFeature([], tf.int64),
     }
 
-    example = tf.parse_single_example(value, featdef)
-    image = tf.decode_raw(example['image'], tf.uint8)
+    example = tf.io.parse_single_example(value, featdef)
+    image = tf.io.decode_raw(example['image'], tf.uint8)
     image.set_shape([DEPTH * HEIGHT * WIDTH])
 
     # Reshape from [depth * height * width] to [depth, height, width].
@@ -202,18 +202,16 @@ def main(args):
 
     logging.info("configuring model")
     model = keras_model_fn(args.learning_rate, args.weight_decay, args.optimizer, args.momentum)
-    callbacks = []
-
-    callbacks.append(ModelCheckpoint(args.model_dir + '/checkpoint-{epoch}.h5'))
+    checkpoint = ModelCheckpoint(args.model_dir + '/checkpoint-{epoch}.h5')
 
     logging.info("Starting training")
     model.fit(x=train_dataset[0], y=train_dataset[1],
               steps_per_epoch=(num_examples_per_epoch('train') // args.batch_size),
               epochs=args.epochs, validation_data=validation_dataset,
-              validation_steps=(num_examples_per_epoch('validation') // args.batch_size), callbacks=callbacks)
+              validation_steps=(num_examples_per_epoch('validation') // args.batch_size), callbacks=[checkpoint])
 
     score = model.evaluate(eval_dataset[0], eval_dataset[1], steps=num_examples_per_epoch('eval') // args.batch_size,
-                           verbose=0)
+                           verbose=0, callbacks=[])
 
     logging.info('Test loss:{}'.format(score[0]))
     logging.info('Test accuracy:{}'.format(score[1]))
