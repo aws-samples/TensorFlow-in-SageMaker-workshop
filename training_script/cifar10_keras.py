@@ -150,10 +150,10 @@ def _input(epochs, batch_size, channel, channel_name):
 def _train_preprocess_fn(image):
     """Preprocess a single training image of layout [height, width, depth]."""
     # Resize the image to add four extra pixels on each side.
-    image = tf.image.resize_with_crop_or_pad(image, HEIGHT + 8, WIDTH + 8)
+    image = tf.image.resize_image_with_crop_or_pad(image, HEIGHT + 8, WIDTH + 8)
 
     # Randomly crop a [HEIGHT, WIDTH] section of the image.
-    image = tf.image.random_crop(image, [HEIGHT, WIDTH, DEPTH])
+    image = tf.random_crop(image, [HEIGHT, WIDTH, DEPTH])
 
     # Randomly flip the image horizontally.
     image = tf.image.random_flip_left_right(image)
@@ -164,12 +164,12 @@ def _train_preprocess_fn(image):
 def _dataset_parser(value):
     """Parse a CIFAR-10 record from value."""
     featdef = {
-        'image': tf.io.FixedLenFeature([], tf.string),
-        'label': tf.io.FixedLenFeature([], tf.int64),
+        'image': tf.FixedLenFeature([], tf.string),
+        'label': tf.FixedLenFeature([], tf.int64),
     }
 
-    example = tf.io.parse_single_example(value, featdef)
-    image = tf.io.decode_raw(example['image'], tf.uint8)
+    example = tf.parse_single_example(value, featdef)
+    image = tf.decode_raw(example['image'], tf.uint8)
     image.set_shape([DEPTH * HEIGHT * WIDTH])
 
     # Reshape from [depth * height * width] to [depth, height, width].
