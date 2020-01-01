@@ -211,7 +211,7 @@ def main(args):
               validation_steps=(num_examples_per_epoch('validation') // args.batch_size), callbacks=[checkpoint])
 
     score = model.evaluate(eval_dataset[0], eval_dataset[1], steps=num_examples_per_epoch('eval') // args.batch_size,
-                           verbose=0, callbacks=[])
+                           verbose=0, callbacks=None)
 
     logging.info('Test loss:{}'.format(score[0]))
     logging.info('Test accuracy:{}'.format(score[1]))
